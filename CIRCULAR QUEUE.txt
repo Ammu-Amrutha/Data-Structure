@@ -1,0 +1,136 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int queue[5], front = -1, rear = -1, n;
+
+void enqueue();
+void dequeue();
+void display();
+
+int main()
+{
+    int choice;
+
+    printf("Enter the size of the queue: ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > 5)
+    {
+        printf("Invalid queue size!\n");
+        return 0;
+    }
+
+    do
+    {
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Display");
+        printf("\n4. Exit");
+
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                enqueue();
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("\nExiting...");
+                break;
+
+            default:
+                printf("\nInvalid choice!");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+
+
+void enqueue()
+{
+    int value;
+
+    if ((rear + 1) % n == front)
+    {
+        printf("\nQueue Overflow\n");
+    }
+    else
+    {
+        printf("\nEnter the value: ");
+        scanf("%d", &value);
+
+        if (front == -1)
+        {
+            front = 0;
+        }
+
+        rear = (rear + 1) % n;
+        queue[rear] = value;
+
+        printf("\n%d inserted into the queue\n", value);
+    }
+}
+
+
+void dequeue()
+{
+    if (front == -1)
+    {
+        printf("\nQueue Underflow\n");
+    }
+    else
+    {
+        printf("\nDeleted element: %d\n", queue[front]);
+
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front = (front + 1) % n;
+        }
+    }
+}
+
+
+void display()
+{
+    int i;
+
+    if (front == -1)
+    {
+        printf("\nQueue is Empty\n");
+    }
+    else
+    {
+        printf("\nQueue elements: ");
+
+        i = front;
+
+        while (1)
+        {
+            printf("%d ", queue[i]);
+
+            if (i == rear)
+                break;
+
+            i = (i + 1) % n;
+        }
+
+        printf("\n");
+    }
+}

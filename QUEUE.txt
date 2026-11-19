@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert();
+void delete();
+void display();
+
+int queue[50], n;
+int front = -1, rear = -1;
+
+void main()
+{
+    int choice;
+
+    printf("\n Enter the size of the array:");
+    scanf("%d", &n);
+
+    printf("\n 1. Insert");
+    printf("\n 2. Delete");
+    printf("\n 3. Display");
+    printf("\n 4. Exit");
+
+    printf("\n Enter your choice:");
+    scanf("%d", &choice);
+
+    while (choice != 4)
+    {
+        switch (choice)
+        {
+            case 1:
+                insert();
+                break;
+
+            case 2:
+                delete();
+                break;
+
+            case 3:
+                display();
+                break;
+        }
+
+        printf("\n Enter your choice:");
+        scanf("%d", &choice);
+    }
+}
+
+void insert()
+{
+    int item;
+
+    printf("\n Enter the element:");
+    scanf("%d", &item);
+
+    if (rear == n - 1)
+    {
+        printf("\n Overflow\n");
+        return;
+    }
+
+    if (front == -1 && rear == -1)
+    {
+        front = 0;
+        rear = 0;
+    }
+    else
+    {
+        rear = rear + 1;
+    }
+
+    queue[rear] = item;
+
+    printf("\n Value inserted\n");
+}
+
+void delete()
+{
+    int item;
+
+    if (front == -1 || front > rear)
+    {
+        printf("\n Underflow\n");
+        return;
+    }
+    else
+    {
+        item = queue[front];
+
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else
+        {
+            front = front + 1;
+        }
+
+        printf("\n Value deleted\n");
+    }
+}
+
+void display()
+{
+    int i;
+
+    if (rear == -1)
+    {
+        printf("\n Empty queue\n");
+    }
+    else
+    {
+        printf("\n Printing values...\n");
+
+        for (i = front; i <= rear; i++)
+        {
+            printf("\n %d", queue[i]);
+        }
+    }
+}
